@@ -1,3 +1,4 @@
+# Ectracting CSV
 import pandas as pd
 
 # Replace file_path.csv' with the path to your CSV file
@@ -10,75 +11,28 @@ data = pd.read_csv(file_path)
 print(data.head())
 
 
+# Extracting SARIF
+pip install sarif
+from sarif import parse
 
+# Replace 'file_path.sarif' with the path to your SARIF file
+file_path = 'file_path.sarif'
 
-# Import necessary libraries
-import os
-import json
-import git
-from sarif_parser import parse_sarif
-from typing import List, Dict, Tuple
- 
-# Function to download and extract SARIF files
-def download_and_extract_sarif(url: str, extract_path: str) -> None:
-    # Code to download and extract zip file
- 
-# Function to parse SARIF files and extract issues
-def extract_issues_from_sarif(file_path: str) -> List[Dict]:
-    # Code to parse SARIF file and extract issues
-    return parse_sarif(file_path)
- 
-# Function to compare issues between baseline and target
-def compare_issues(baseline_issues: List[Dict], target_issues: List[Dict]) -> List[Dict]:
-    # Code to compare issues and identify new issues
-    new_issues = [issue for issue in target_issues if issue not in baseline_issues]
-    return new_issues
- 
-# Function to get commit information
-def get_commit_info(repo_path: str, commit_hash: str) -> Dict:
-    # Code to retrieve commit information using GitPython
-    repo = git.Repo(repo_path)
-    commit = repo.commit(commit_hash)
-    return {
-        'hash': commit.hexsha,
-        'author': commit.author.name,
-        'date': commit.committed_date,
-        'message': commit.message
-    }
- 
-# Main function to analyze and pinpoint commits
-def analyze_commits(sarif_files: List[str], repo_path: str) -> List[Dict]:
-    baseline_file = sarif_files[0]
-    baseline_issues = extract_issues_from_sarif(baseline_file)
- 
-    results = []
-    for file in sarif_files[1:]:
-        target_issues = extract_issues_from_sarif(file)
-        new_issues = compare_issues(baseline_issues, target_issues)
-        commit_hash = os.path.basename(file).split('.')[0]
-        commit_info = get_commit_info(repo_path, commit_hash)
-        results.append({
-            'commit': commit_info,
-            'new_issues': new_issues
-        })
- 
-    return results
- 
-# Function to create user-friendly interface
-def create_interface(results: List[Dict]) -> None:
-    # Code to create CLI or Web-based interface to display results
- 
-# Main execution flow
-if __name__ == '__main__':
-    # Define paths and URLs
-    sarif_url = "https://mkmartifactory.amd.com:443/artifactory/SW-SITARTIFACTS-PROD-LOCAL/prototyping/database-5a7786812dd4-2024-01-11.zip"
-    extract_path = "/path/to/extracted/sarif"
-    repo_path = "/path/to/tensorflow/repo"
-    # Download and extract SARIF files
-    download_and_extract_sarif(sarif_url, extract_path)
-    # List SARIF files
-    sarif_files = [os.path.join(extract_path, f) for f in os.listdir(extract_path) if f.endswith('.sarif')]
-    # Analyze commits
-    results = analyze_commits(sarif_files, repo_path)
-    # Create user-friendly interface
-    create_interface(results)
+# Open the SARIF file and parse its contents
+with open(file_path, 'r', encoding='utf-8') as sarif_file:
+    sarif_data = parse(sarif_file)
+
+# Extracting information from the parsed SARIF data
+results = sarif_data.runs[0].results if sarif_data.runs else []
+
+# Printing the results
+for result in results:
+    print("Rule ID:", result.rule_id)
+    print("Message:", result.message.text)
+    print("Severity:", result.level)
+    print("Locations:")
+    for location in result.locations:
+        print("  File:", location.physical_location.artifact_location.uri)
+        print("  Line:", location.physical_location.region.start_line)
+    print()
+
