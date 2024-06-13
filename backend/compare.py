@@ -43,7 +43,7 @@ def extract_commit_info(file_paths, default_author):
             "file_path": file_path,
             "author": author,
             "timestamp": timestamp, #date from file
-            "commit date": timestamps[index], #commit time from tensorflow
+            "commit hash": timestamps[index], #commit time from tensorflow
             "process_date": current_date,  # Add the current date to each result
             "status": status
         })
