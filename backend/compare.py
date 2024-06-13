@@ -1,24 +1,6 @@
 import json
 import re
 from datetime import datetime
-import os
-
-
-def collect_file_paths():
-    """
-    Prompt the user to input file paths and collect them in a list.
-    Continues asking for more paths until the user decides to stop.
-    """
-    file_paths = []
-    while True:
-        file_path = input("Please enter a file path, or type 'done' to finish: ")
-        if file_path.lower() == 'done':
-            break
-        if os.path.isfile(file_path):  # Verify that the file exists
-            file_paths.append(file_path)
-        else:
-            print("File does not exist. Please try again.")
-    return file_paths
 
 def extract_commit_info(file_paths, default_author):
    
