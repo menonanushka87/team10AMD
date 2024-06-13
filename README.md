@@ -23,12 +23,18 @@ Ensure you have the following software installed on your machine:
 
   
 2. **Install Backend Dependencies**
+    ```bash
+    cd backend
+    ```
 
     ```bash
     pip install -r requirements.txt
     ```
 
 3. **Run Database Migrations**
+    ```bash
+    cd mysite
+    ```
 
     ```bash
     python manage.py migrate
@@ -47,7 +53,11 @@ Ensure you have the following software installed on your machine:
 1. **Navigate to the Frontend Directory**
 
     ```bash
-    cd frontend
+    cd webui
+    ```
+
+    ```bash
+    cd my-app
     ```
 
 2. **Install Frontend Dependencies**
