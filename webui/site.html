@@ -3,57 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>How vulnerable is your code?</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f4f4f4;
-        }
-        .container {
-            background-color: #fff;
-            padding: 40px; /* Increased padding */
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
-            width: 50%; /* Increased width */
-            max-width: 600px; /* Max width for responsiveness */
-        }
-        h1 {
-            margin-bottom: 20px;
-            font-family: 'Georgia', serif; /* Changed font */
-            color: #8B0000; /* Wine red color */
-        }
-        .upload-section {
-            margin: 20px 0;
-        }
-        label {
-            display: block;
-            margin-bottom: 10px;
-            font-weight: bold;
-        }
-        input[type="file"] {
-            display: block;
-            margin: 0 auto 20px auto;
-        }
-    </style>
+    <title>Team 10 Hackathon</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <div class="container">
-        <h1>How vulnerable is your code?</h1>
-        <div class="upload-section">
-            <label for="csvFile">CSV File:</label>
-            <input type="file" id="csvFile" name="csvFile" accept=".csv">
-        </div>
-        <div class="upload-section">
-            <label for="sarifFile">SARIF File:</label>
-            <input type="file" id="sarifFile" name="sarifFile" accept=".sarif">
-        </div>
+<header>
+    <div class="logo">
+        <h1>Team 10 Hackathon</h1>
     </div>
+    <nav>
+        <a href="#">Home</a>
+    </nav>
+</header>
+<main>
+    <section class="description">
+        <h2>Are you in a <span class="vulnerable">Vulnerable</span> spot?</h2>
+        <p>Our Code Vulnerability Checker is the ultimate tool to protect your code from potential threats. We can
+            analyze the code and detect any vulnerability such as bugs, security weaknesses, and possible exploits.</p>
+        <button class="instructions-btn" aria-describedby="tooltip" title="
+                    1. Upload Files: Click 'Upload Files' to select and upload your SARIF and csv files.
+                    2. Analyze Commits: The tool will parse the files and identify the commits that introduced new issues.
+                    3. View Results: See a list of problematic commits with details such as commit hash, author, date, and issues introduced.
+                    4. Visualize Changes: Use the visualization tools to explore the impact of each commit.
+                    5. Download Report: Optionally download a report of the analysis."
+
+        >Instructions
+        </button>
+    </section>
+    <section class="upload">
+        <h2>Get started by uploading your files</h2>
+        <form id="upload-form" enctype="multipart/form-data">
+            <div class="upload-steps">
+                <div class="step">
+                    <h3>Step 1</h3>
+                    <p>Upload CSV file</p>
+                    <input type="file" name="csvFile" accept=".csv">
+                </div>
+                <div class="step">
+                    <h3>Step 2</h3>
+                    <p>Upload SARIF file</p>
+                    <input type="file" name="sarifFile" accept=".sarif">
+                </div>
+            </div>
+            <div class="generate-button">
+                <button type="submit">Generate</button>
+            </div>
+        </form>
+    </section>
+</main>
+<script>
+        document.getElementById('upload-form').addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const formData = new FormData(event.target);
+            try {
+                const response = await fetch('/upload', {
+                    method: 'POST',
+                    body: formData,
+                });
+
+                if (response.ok) {
+                    alert('Files uploaded successfully!');
+                } else {
+                    alert('Failed to upload files.');
+                }
+            } catch (error) {
+                console.error('Error uploading files:', error);
+                alert('An error occurred while uploading the files.');
+            }
+        });
+
+</script>
 </body>
 </html>
