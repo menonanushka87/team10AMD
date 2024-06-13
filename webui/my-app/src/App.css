@@ -1,0 +1,195 @@
+body {
+  font-family: 'Trebuchet MS';
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #000;
+  padding: 20px;
+  color: #fff;
+}
+
+header .logo h1 {
+  margin: 0;
+}
+
+header nav a {
+  color: #fff;
+  text-decoration: none;
+  margin-right: 20px;
+}
+
+main {
+  display: flex;
+  height: calc(100vh - 80px); /* Adjust height to fit the screen */
+}
+
+.description, .upload {
+  flex: 1;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.description {
+  background-color: #fff; /* White background for the left half */
+  color: #333;
+}
+
+.upload {
+  background-color: #ED1C24; /* AMD red for the right half */
+  color: #fff;
+  text-align: center;
+}
+
+.upload h2 {
+  color: #000; /* Black color for the heading */
+}
+
+.upload .upload-steps {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 30px;
+}
+
+.upload .step {
+  background-color: transparent; /* Transparent background for step boxes */
+  color: #fff; /* White text color */
+  padding: 20px;
+  border-radius: 10px;
+  width: 45%;
+  text-align: center;
+  border: none; /* Transparent border */
+}
+
+.upload .step h3 {
+  margin-top: 0;
+}
+
+.upload .step input {
+  margin-top: 10px;
+  padding: 10px;
+  width: 80%;
+  background-color: #000; /* Black background for buttons */
+  color: #fff; /* White text for buttons */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.upload .generate-button {
+  margin-top: 20px;
+}
+
+.upload .generate-button button {
+  background-color: #fff; /* White background */
+  color: #ED1C24; /* AMD red text color */
+  font-weight: bold; /* Bold text */
+  padding: 15px 30px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1.2em;
+}
+
+.description h2 {
+  font-size: 2em;
+}
+
+.description .vulnerable {
+  color: #ED1C24; /* AMD red for Vulnerable text */
+}
+
+main {
+  display: flex;
+  height: calc(100vh - 80px); /* Adjust height to fit the screen */
+}
+
+/* Styles specific to the results.html page */
+.results-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.results-left {
+  background-color: #ED1C24; /* AMD red for the background */
+  color: #fff;
+  flex: 1;
+  padding: 50px;
+}
+
+.results-right {
+  flex: 2;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.results .result-item {
+  background-color: #fff; /* White background for text boxes */
+  color: #000; /* Black text color */
+  margin-bottom: 20px;
+  padding: 20px;
+  border-radius: 0; /* Square edges */
+}
+
+.results .result-item h3 {
+  margin: 0;
+  font-size: 1.2em;
+}
+
+.results .result-item p {
+  margin: 5px 0 0;
+  font-size: 1em;
+}
+
+/* App.css */
+ .modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+} 
+
+.modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 4px;
+  width: 80%;
+  max-height: 80%;
+  overflow-y: auto;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.analysis-results {
+  padding: 20px;
+  font-family: 'Trebuchet MS', sans-serif;
+  
+}
+
+.result-item {
+  margin-bottom: 10px;
+  font-family: 'Trebuchet MS', sans-serif;
+}
