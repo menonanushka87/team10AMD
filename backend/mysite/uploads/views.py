@@ -1,27 +1,27 @@
-from django.shortcuts import render
+import os
+from django.conf import settings
 from django.http import JsonResponse
+from .models import UploadedFile
 
 def upload_file(request):
     if request.method == 'POST' and request.FILES.get('csvFile') and request.FILES.get('sarifFile'):
         csv_file = request.FILES['csvFile']
         sarif_file = request.FILES['sarifFile']
-        
-        # Process the uploaded files here (e.g., save to database, analyze data)
-        # Example: Save files to the media folder
-        with open('media/' + csv_file.name, 'wb+') as destination:
-            for chunk in csv_file.chunks():
-                destination.write(chunk)
 
-        with open('media/' + sarif_file.name, 'wb+') as destination:
-            for chunk in sarif_file.chunks():
-                destination.write(chunk)
+        # Ensure media directory exists
+        media_path = os.path.join(settings.MEDIA_ROOT)
+        if not os.path.exists(media_path):
+            os.makedirs(media_path)
 
-        # Example: Perform some processing on the uploaded files
-        # For demonstration, just echoing the filenames in response
+        # Save uploaded files to the database
+        uploaded_csv = UploadedFile.objects.create(file=csv_file)
+        uploaded_sarif = UploadedFile.objects.create(file=sarif_file)
+
+        # Example response data with processed results
         response_data = {
             'message': 'Files uploaded successfully',
-            'csvFileName': csv_file.name,
-            'sarifFileName': sarif_file.name,
+            'csvFileName': uploaded_csv.file.name,
+            'sarifFileName': uploaded_sarif.file.name,
         }
         return JsonResponse(response_data)
     else:

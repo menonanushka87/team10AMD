@@ -1,7 +1,45 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css'; // Import your CSS file
 
 const App = () => {
+  const [csvFile, setCsvFile] = useState(null);
+  const [sarifFile, setSarifFile] = useState(null);
+
+  const handleCsvFileChange = (event) => {
+    setCsvFile(event.target.files[0]);
+  };
+
+  const handleSarifFileChange = (event) => {
+    setSarifFile(event.target.files[0]);
+  };
+
+  const handleSubmit = async () => {
+    if (!csvFile || !sarifFile) {
+      alert('Please upload both CSV and SARIF files.');
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('csvFile', csvFile);
+    formData.append('sarifFile', sarifFile);
+
+    try {
+      const response = await fetch('http://localhost:8000/api/upload/', {
+        method: 'POST',
+        body: formData,
+      });
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await response.json();
+      alert('Files uploaded successfully!');
+      console.log('Server response:', data);
+    } catch (error) {
+      console.error('Error uploading files:', error);
+      alert('Error uploading files. Please try again later.');
+    }
+  };
+
   return (
     <div>
       <header>
@@ -41,16 +79,16 @@ const App = () => {
             <div className="step">
               <h3>Step 1</h3>
               <p>Upload CSV file</p>
-              <input type="file" accept=".csv" />
+              <input type="file" accept=".csv" onChange={handleCsvFileChange} />
             </div>
             <div className="step">
               <h3>Step 2</h3>
               <p>Upload SARIF file</p>
-              <input type="file" accept=".sarif" />
+              <input type="file" accept=".sarif" onChange={handleSarifFileChange} />
             </div>
           </div>
           <div className="generate-button">
-            <button>Generate</button>
+            <button onClick={handleSubmit}>Generate</button>
           </div>
         </section>
       </main>
