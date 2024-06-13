@@ -54,12 +54,11 @@ def extract_new(new_file_path: str):
 def compare(baseline, new):
     """
 
-    :param baseline:
-    :param new:
-    :return:
+    :param baseline: baseline data
+    :param new: user uploaded data
+    :return: list of all NEW issues
     """
-    total_new_issues_in_new = len(baseline)-len(new)
-    new_issues = {}
+    new_issues = []
     ids=[]
 
     for b in baseline:
@@ -68,8 +67,8 @@ def compare(baseline, new):
     for n in new:
         id = n['id']
         if id not in ids:  # NEW ID FOUND --> NEW ISSUE, NOT IN BASELINE
-            new_issues[id] = n['security-severity']
-    print(new_issues)
+            new_issues.append(n)
+    return new_issues
 
 
 
