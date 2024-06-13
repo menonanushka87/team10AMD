@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Team 10 Hackathon</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <h1>Team 10 Hackathon</h1>
+        </div>
+        <nav>
+            <a href="#">Home</a>
+        </nav>
+    </header>
+    <main>
+        <section class="description">
+            <h2>Are you in a <span class="vulnerable">Vulnerable</span> spot?</h2>
+            <p>Our Code Vulnerability Checker is the ultimate tool to protect your code from potential threats. We can analyze the code and detect any vulnerability such as bugs, security weaknesses, and possible exploits.</p>
+            <button class="instructions-btn" aria-describedby="tooltip" title="
+                    1. Upload Files: Click 'Upload Files' to select and upload your SARIF and csv files.
+                    2. Analyze Commits: The tool will parse the files and identify the commits that introduced new issues.
+                    3. View Results: See a list of problematic commits with details such as commit hash, author, date, and issues introduced.
+                    4. Visualize Changes: Use the visualization tools to explore the impact of each commit.
+                    5. Download Report: Optionally download a report of the analysis."
+                
+            >Instructions</button>
+         </section>
+        <section class="upload">
+            <h2>Get started by uploading your files</h2>
+            <div class="upload-steps">
+                <div class="step">
+                    <h3>Step 1</h3>
+                    <p>Upload CSV file</p>
+                    <input type="file" accept=".csv">
+                </div>
+                <div class="step">
+                    <h3>Step 2</h3>
+                    <p>Upload SARIF file</p>
+                    <input type="file" accept=".sarif">
+                </div>
+            </div>
+            <div class="generate-button">
+                <button>Generate</button>
+            </div>
+        </section>
+    </main>
+</body>
+</html>
