@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import './App.css'; // Import your CSS file
+import './App.css'; 
 
 const App = () => {
   const [csvFile, setCsvFile] = useState(null);
   const [sarifFile, setSarifFile] = useState(null);
+  const [analysisResults, setAnalysisResults] = useState(null); 
 
   const handleCsvFileChange = (event) => {
     setCsvFile(event.target.files[0]);
@@ -32,6 +33,7 @@ const App = () => {
         throw new Error('Network response was not ok');
       }
       const data = await response.json();
+      setAnalysisResults(data); 
       alert('Files uploaded successfully!');
       console.log('Server response:', data);
     } catch (error) {
@@ -64,7 +66,7 @@ const App = () => {
           <button
             className="instructions-btn"
             aria-describedby="tooltip"
-            title="1. Upload Files: Click 'Upload Files' to select and upload your SARIF and csv files.
+            title="1. Upload Files: Click 'Upload Files' to select and upload your SARIF and CSV files.
                   2. Analyze Commits: The tool will parse the files and identify the commits that introduced new issues.
                   3. View Results: See a list of problematic commits with details such as commit hash, author, date, and issues introduced.
                   4. Visualize Changes: Use the visualization tools to explore the impact of each commit.
@@ -91,6 +93,37 @@ const App = () => {
             <button onClick={handleSubmit}>Generate</button>
           </div>
         </section>
+        
+
+        {analysisResults && (
+          <section className="analysis-results">
+            <h2>Analysis Results</h2>
+            <div className="result-item">
+              <h3>Commit Hash:</h3>
+              <p><i>{analysisResults.commitHash}</i></p>
+            </div>
+            <div className="result-item">
+              <h3>Author:</h3>
+              <p><i>{analysisResults.author}</i></p>
+            </div>
+            <div className="result-item">
+              <h3>Date of Change:</h3>
+              <p><i>{analysisResults.dateOfChange}</i></p>
+            </div>
+            <div className="result-item">
+              <h3>Level of Severity:</h3>
+              <p>{analysisResults.severity}</p>
+            </div>
+            <div className="result-item">
+              <h3>Summary of Change:</h3>
+              <p>{analysisResults.summary}</p>
+            </div>
+            <div className="result-item">
+              <h3>New Issues:</h3>
+              <pre>{JSON.stringify(analysisResults.issues_only_in_file2, null, 2)}</pre>
+            </div>
+          </section>
+        )}
       </main>
     </div>
   );
