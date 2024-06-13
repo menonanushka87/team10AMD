@@ -15,13 +15,13 @@ const App = () => {
   };
 
   const handleSubmit = async () => {
-    if (!csvFile || !sarifFile) {
+    if (!sarifFile) {
       alert('Please upload both CSV and SARIF files.');
       return;
     }
 
     const formData = new FormData();
-    formData.append('csvFile', csvFile);
+    // formData.append('csvFile', csvFile);
     formData.append('sarifFile', sarifFile);
 
     try {
@@ -79,12 +79,12 @@ const App = () => {
           <h2>Get started by uploading your files</h2>
           <div className="upload-steps">
             <div className="step">
-              <h3>Step 1</h3>
+              {/* <h3>Step 1</h3> */}
               <p>Upload CSV file</p>
               <input type="file" accept=".csv" onChange={handleCsvFileChange} />
             </div>
             <div className="step">
-              <h3>Step 2</h3>
+              {/* <h3>Step 2</h3> */}
               <p>Upload SARIF file</p>
               <input type="file" accept=".sarif" onChange={handleSarifFileChange} />
             </div>
@@ -98,7 +98,7 @@ const App = () => {
         {analysisResults && (
           <section className="analysis-results">
             <h2>Analysis Results</h2>
-            <div className="result-item">
+            {/* <div className="result-item">
               <h3>Commit Hash:</h3>
               <p><i>{analysisResults.commitHash}</i></p>
             </div>
@@ -117,7 +117,7 @@ const App = () => {
             <div className="result-item">
               <h3>Summary of Change:</h3>
               <p>{analysisResults.summary}</p>
-            </div>
+            </div> */}
             <div className="result-item">
               <h3>New Issues:</h3>
               <pre>{JSON.stringify(analysisResults.issues_only_in_file2, null, 2)}</pre>
